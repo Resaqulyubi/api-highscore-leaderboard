@@ -4,10 +4,10 @@ An open-source, fast, and easy-to-use leaderboard API for your games. Store scor
 
 ## 🌐 Live Demo
 
-**Try it now:** [https://api-leaderboard.nury.my.id](https://api-leaderboard.nury.my.id)
+**Try it now:** [https://api-leaderboard.qulyubis.biz.id](https://api-leaderboard.qulyubis.biz.id)
 
-- **API Documentation**: [https://api-leaderboard.nury.my.id/docs](https://api-leaderboard.nury.my.id/docs)
-- **Interactive Docs**: [https://api-leaderboard.nury.my.id/redoc](https://api-leaderboard.nury.my.id/redoc)
+- **API Documentation**: [https://api-leaderboard.qulyubis.biz.id/docs](https://api-leaderboard.qulyubis.biz.id/docs)
+- **Interactive Docs**: [https://api-leaderboard.qulyubis.biz.id/redoc](https://api-leaderboard.qulyubis.biz.id/redoc)
 
 ## ✨ Features
 
