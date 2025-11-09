@@ -31,6 +31,9 @@ RUN mkdir -p /app/data
 # Expose port 6400
 EXPOSE 6400
 
+# Declare volume for database persistence
+VOLUME ["/app/data"]
+
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD python -c "import requests; requests.get('http://localhost:6400/api/v1/health')"

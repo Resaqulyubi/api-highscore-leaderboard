@@ -1,0 +1,46 @@
+========================================
+COOLIFY PERSISTENT STORAGE SETUP
+========================================
+
+IMPORTANT: Follow these steps in Coolify to prevent database loss on redeploy!
+
+Step 1: Open your application in Coolify Dashboard
+
+Step 2: Go to "Storages" tab (left sidebar)
+
+Step 3: Click "Add Volume" or "Add Storage"
+
+Step 4: Configure the volume:
+   - Source Path: /app/data
+   - Destination Path: /app/data
+   - Or if it asks for "Name": app-data
+   - Or if it asks for "Mount Path": /app/data
+
+Step 5: Save the storage configuration
+
+Step 6: Redeploy your application
+
+Step 7: Test - create some scores, then redeploy again - data should persist!
+
+========================================
+WHY THIS IS NEEDED
+========================================
+
+When you deploy with Dockerfile only (not docker-compose), 
+Coolify doesn't automatically preserve volumes.
+
+You MUST manually configure persistent storage in Coolify UI
+for the /app/data directory where SQLite database is stored.
+
+========================================
+VERIFICATION
+========================================
+
+After setup:
+1. Create a game and submit scores
+2. Go to Coolify and click "Redeploy"
+3. Check if your data still exists
+4. If yes - setup is correct!
+5. If no - check storage configuration again
+
+========================================

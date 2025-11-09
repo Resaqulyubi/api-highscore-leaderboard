@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     """Application settings"""
     
     # Database
-    database_url: str = "sqlite:///./highscore.db"
+    database_url: str = "sqlite:///./data/highscore.db"
     
     # API
     api_title: str = "HighScore API"
