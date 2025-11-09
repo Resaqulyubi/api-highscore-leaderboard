@@ -17,7 +17,8 @@ services:
       - ENABLE_SECURITY_HEADERS=${ENABLE_SECURITY_HEADERS:-true}
       - ENABLE_REQUEST_LOGGING=${ENABLE_REQUEST_LOGGING:-true}
     volumes:
-      - ./data:/app/data
+      # Named volume for database persistence across deployments
+      - highscore-data:/app/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:6400/api/v1/health"]
       interval: 30s
@@ -47,4 +48,6 @@ networks:
     driver: bridge
 
 volumes:
+  # Named volume for SQLite database persistence
+  highscore-data:
   postgres-data:
