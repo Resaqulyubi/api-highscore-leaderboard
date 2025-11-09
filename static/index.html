@@ -5,208 +5,288 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="HighScore - Open-source leaderboard API for games">
     <title>HighScore API - Open Source Leaderboard</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏆</text></svg>">
+    
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #212529;
+            background: #f8f9fa;
+            color: #2d3748;
             line-height: 1.6;
         }
 
         .header {
-            background-color: #6366f1;
+            background: linear-gradient(135deg, #ff5962 0%, #ff7380 100%);
             color: white;
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
+            box-shadow: 0 4px 20px rgba(255, 89, 98, 0.2);
+        }
+
+        .trophy-icon {
+            font-size: 80px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+            margin-bottom: 20px;
         }
 
         .header h1 {
-            font-size: 48px;
+            font-size: 56px;
             margin: 20px 0 10px 0;
-            font-weight: bold;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 1px;
         }
 
         .header p {
-            font-size: 20px;
-            margin: 10px 0;
+            font-size: 22px;
+            margin: 15px 0;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
         }
 
         .badge {
             display: inline-block;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            margin-top: 10px;
+            background: white;
+            color: #ff5962;
+            padding: 10px 24px;
+            border-radius: 25px;
+            margin-top: 15px;
             font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
         .intro {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
         .intro h2 {
-            font-size: 32px;
-            color: #6366f1;
-            margin-bottom: 15px;
+            font-size: 40px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 800;
         }
 
         .intro p {
             font-size: 18px;
-            color: #6c757d;
+            color: #4a5568;
             max-width: 800px;
             margin: 0 auto;
+            line-height: 1.8;
         }
 
         .buttons {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
-            margin: 30px 0;
+            margin: 40px 0;
         }
 
         .btn {
             display: inline-block;
-            padding: 14px 28px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 16px 36px;
+            font-size: 17px;
+            font-weight: 700;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 10px;
             text-align: center;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .btn-primary {
-            background-color: #6366f1;
+            background: linear-gradient(135deg, #ff5962 0%, #ff7380 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(255, 89, 98, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(255, 89, 98, 0.4);
+            transform: translateY(-2px);
         }
 
         .btn-dark {
-            background-color: #24292e;
+            background: #2d3748;
             color: white;
+            box-shadow: 0 4px 15px rgba(45, 55, 72, 0.2);
         }
 
-        .btn-yellow {
-            background-color: #fbbf24;
-            color: #000;
+        .btn-dark:hover {
+            background: #1a202c;
+            transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #2d3748;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            font-weight: 800;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
         }
 
         .stats-box {
-            background-color: #6366f1;
-            color: white;
-            padding: 40px 20px;
-            margin: 40px 0;
-            border-radius: 10px;
+            background: white;
+            padding: 50px 30px;
+            margin: 60px 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 2px solid #ff5962;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
             text-align: center;
         }
 
         .stat h3 {
-            font-size: 48px;
+            font-size: 56px;
             margin: 0 0 10px 0;
-            font-weight: bold;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff5962 0%, #ff7380 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .stat p {
-            font-size: 16px;
+            font-size: 18px;
             margin: 0;
+            color: #4a5568;
+            font-weight: 600;
         }
 
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
         }
 
         .feature-card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            border: 1px solid #e5e7eb;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #ff5962;
+            box-shadow: 0 8px 30px rgba(255, 89, 98, 0.15);
+            transform: translateY(-5px);
         }
 
         .feature-card .icon {
-            font-size: 48px;
-            margin-bottom: 15px;
+            font-size: 56px;
+            margin-bottom: 20px;
         }
 
         .feature-card h3 {
-            font-size: 20px;
-            color: #6366f1;
-            margin-bottom: 10px;
+            font-size: 22px;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 800;
         }
 
         .feature-card p {
-            color: #6c757d;
+            color: #4a5568;
             font-size: 15px;
-            line-height: 1.5;
+            line-height: 1.7;
         }
 
         .code-section {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            margin: 40px 0;
-            border: 1px solid #e5e7eb;
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            margin: 60px 0;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
 
         .code-section h2 {
             text-align: center;
-            font-size: 28px;
-            color: #6366f1;
-            margin-bottom: 20px;
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 30px;
+            font-weight: 800;
         }
 
         .code-block {
-            background-color: #1e293b;
+            background: #2d3748;
             color: #e2e8f0;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 12px;
             overflow-x: auto;
             font-family: 'Courier New', monospace;
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .footer {
-            background-color: #1f2937;
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
             color: white;
             text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
+            padding: 50px 20px;
+            margin-top: 80px;
         }
 
         .footer a {
-            color: #60a5fa;
+            color: #ff7380;
             text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            color: #ff5962;
         }
 
         .footer p {
-            margin: 10px 0;
+            margin: 12px 0;
+            font-size: 16px;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, #ff5962 50%, transparent 100%);
+            margin: 60px 0;
+            opacity: 0.3;
         }
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 36px;
+                font-size: 42px;
+            }
+            
+            .trophy-icon {
+                font-size: 64px;
             }
             
             .intro h2 {
-                font-size: 24px;
+                font-size: 32px;
             }
             
             .buttons {
@@ -216,15 +296,24 @@
             .btn {
                 width: 100%;
             }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .feature-card {
+                transform: none !important;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div style="font-size: 64px;">🏆</div>
+        <div class="trophy-icon">🏆</div>
         <h1>HighScore API</h1>
         <p>Open-Source Leaderboard API for Games</p>
-        <span class="badge">✨ 100% Free & Open Source</span>
+        <span class="badge">⭐ 100% Free & Open Source</span>
     </div>
 
     <div class="container">
@@ -235,7 +324,7 @@
             <div class="buttons">
                 <a href="/docs" class="btn btn-primary">📖 API Documentation</a>
                 <a href="https://github.com/Resaqulyubi/api-highscore-leaderboard" target="_blank" class="btn btn-dark">⭐ GitHub</a>
-                <a href="https://buymeacoffee.com/qulyubi" target="_blank" class="btn btn-yellow">☕ Buy Me a Coffee</a>
+                <a href="https://buymeacoffee.com/qulyubi" target="_blank" class="btn btn-gold">☕ Buy Me a Coffee</a>
             </div>
         </div>
 
@@ -259,6 +348,8 @@
                 </div>
             </div>
         </div>
+
+        <div class="divider"></div>
 
         <div class="features">
             <div class="feature-card">
@@ -293,6 +384,8 @@
             </div>
         </div>
 
+        <div class="divider"></div>
+
         <div class="code-section">
             <h2>Quick Start Example</h2>
             <div class="code-block"># 1. Create a game and get API key
@@ -310,6 +403,8 @@ curl -X POST /api/v1/scores \
 curl /api/v1/leaderboard?limit=10 \
   -H "X-API-Key: YOUR_API_KEY"</div>
         </div>
+
+        <div class="divider"></div>
 
         <div class="intro">
             <h2>Ready to Get Started?</h2>
